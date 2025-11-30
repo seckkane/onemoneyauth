@@ -20,9 +20,9 @@
   "defaultSignatureAlgorithm": "RS256",
   "offlineSessionMaxLifespanEnabled": false,
   "offlineSessionMaxLifespan": 5184000,
-  "accessTokenLifespan": 900,
-  "accessTokenLifespanForImplicitFlow": 900,
-  "ssoSessionIdleTimeout": 1800,
+  "accessTokenLifespan": 1800,
+  "accessTokenLifespanForImplicitFlow": 1800,
+  "ssoSessionIdleTimeout": 3600,
   "ssoSessionMaxLifespan": 36000,
   "attributes": {
     "userProfileEnabled": "true"
@@ -48,7 +48,7 @@
       "firstName": "Administrator",
       "lastName": "Administrator",
       "attributes": {
-        "phoneNumber": ["+221000000000"]
+        "phoneNumber": ["+221111111111"]
       },
       "credentials": [
         {
@@ -58,25 +58,6 @@
         }
       ],
       "realmRoles": ["ROLE_ADMIN", "ROLE_USER"]
-    },
-    {
-      "username": "user",
-      "enabled": true,
-      "emailVerified": true,
-      "email": "user@localhost",
-      "firstName": "User",
-      "lastName": "User",
-      "attributes": {
-        "phoneNumber": ["+221111111111"]
-      },
-      "credentials": [
-        {
-          "type": "password",
-          "value": "user",
-          "temporary": false
-        }
-      ],
-      "realmRoles": ["ROLE_USER"]
     }
   ],
   "clients": [
@@ -91,13 +72,15 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8080/*", "http://gateway:8080/*"],
-      "webOrigins": ["http://localhost:8080", "http://gateway:8080"],
+      "webOrigins": ["http://localhost:8080", "http://gateway:8080", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900",
+        "access.token.lifespan": "1800",
         "post.logout.redirect.uris": "+"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "user-service",
@@ -110,12 +93,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8081/*", "http://user-service:8081/*"],
-      "webOrigins": ["http://localhost:8081", "http://user-service:8081"],
+      "webOrigins": ["http://localhost:8081", "http://user-service:8081", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "account-service",
@@ -128,12 +113,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8082/*", "http://account-service:8082/*"],
-      "webOrigins": ["http://localhost:8082", "http://account-service:8082"],
+      "webOrigins": ["http://localhost:8082", "http://account-service:8082", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "wallet-service",
@@ -146,12 +133,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8083/*", "http://wallet-service:8083/*"],
-      "webOrigins": ["http://localhost:8083", "http://wallet-service:8083"],
+      "webOrigins": ["http://localhost:8083", "http://wallet-service:8083", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "transaction-service",
@@ -164,12 +153,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8084/*", "http://transaction-service:8084/*"],
-      "webOrigins": ["http://localhost:8084", "http://transaction-service:8084"],
+      "webOrigins": ["http://localhost:8084", "http://transaction-service:8084", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "recharge-service",
@@ -182,12 +173,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8085/*", "http://recharge-service:8085/*"],
-      "webOrigins": ["http://localhost:8085", "http://recharge-service:8085"],
+      "webOrigins": ["http://localhost:8085", "http://recharge-service:8085", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "bill-service",
@@ -200,12 +193,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8086/*", "http://bill-service:8086/*"],
-      "webOrigins": ["http://localhost:8086", "http://bill-service:8086"],
+      "webOrigins": ["http://localhost:8086", "http://bill-service:8086", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     },
     {
       "clientId": "jhipster-registry",
@@ -218,12 +213,14 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "redirectUris": ["http://localhost:8761/*", "http://jhipster-registry:8761/*"],
-      "webOrigins": ["http://localhost:8761", "http://jhipster-registry:8761"],
+      "webOrigins": ["http://localhost:8761", "http://jhipster-registry:8761", "+"],
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "900"
+        "access.token.lifespan": "1800"
       },
-      "fullScopeAllowed": true
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["email", "profile", "roles"],
+      "optionalClientScopes": ["offline_access"]
     }
   ],
   "clientScopes": [
@@ -324,7 +321,7 @@
           "consentRequired": false,
           "config": {
             "userinfo.token.claim": "true",
-            "user.attribute": "username",
+            "user.attribute": "id",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "sub",
@@ -342,7 +339,8 @@
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "phone_number",
-            "jsonType.label": "String"
+            "jsonType.label": "String",
+            "multivalued": "false"
           }
         }
       ]
@@ -385,11 +383,23 @@
           }
         }
       ]
+    },
+    {
+      "name": "offline_access",
+      "description": "OpenID Connect built-in scope: offline_access",
+      "protocol": "openid-connect",
+      "attributes": {
+        "consent.screen.text": "${offlineAccessScopeConsentText}",
+        "display.on.consent.screen": "true"
+      }
     }
   ],
   "defaultDefaultClientScopes": [
     "email",
     "profile",
     "roles"
+  ],
+  "defaultOptionalClientScopes": [
+    "offline_access"
   ]
 }

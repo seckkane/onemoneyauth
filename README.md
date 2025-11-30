@@ -25,16 +25,16 @@ cd onemoneyauth
 docker-compose up -d
 
 
-Requete TEST
+Requete TEST - POSTMAN
 
 Register : POST http://localhost:8080/api/users/register
 {
-    "username": "m2gl_onemoney",
-    "email": "m2gl@exampple.com",
-    "prenoms": "M2gl",
-    "nom": "onemoney",
-    "phoneNumber": "+221776505080",
-    "password": "Secure123!"
+  "username": "{{$randomUserName}}",
+  "prenoms": "{{$randomFirstName}}",
+  "nom": "{{$randomLastName}}",
+  "email": "{{$randomEmail}}",
+  "phoneNumber": "+221771234573",
+  "password": "Test@123456"
 }
 
 Login : POST http://localhost:8080/api/users/login
