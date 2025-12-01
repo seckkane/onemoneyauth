@@ -48,7 +48,7 @@ Login : POST http://localhost:8080/api/users/login
 Profile : GET http://localhost:8080/api/users/profile
 //Pas de Body just le token du login en header
 
-Tester change pin et Reintialiser pin , End point dispo dans le contrat d'interface revisé
+Tester change pin et Reintialiser pin , End point dispo dans le contrat d'interface revisé (En haut dans le dossier Doc)
 
 
 Acces a eureka : localhost:8761
