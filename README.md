@@ -24,24 +24,32 @@ git clone https://github.com/seckkane/onemoneyauth.git
 cd onemoneyauth
 docker-compose up -d
 
+Keycloak http://localhost:9080 [admin,admin]
+Aller Sur le realm jhipster et Realm Settings - User Profile et Creer l'attribut phoneNumber [required]                    # Creation automatique lors de l'import à configurer
 
 Requete TEST - POSTMAN
 
-Register : POST http://localhost:8080/api/users/register
+Register : POST http://localhost:8080/api/users/register              #Remplacez votre email dans le json body
 {
   "username": "{{$randomUserName}}",
   "prenoms": "{{$randomFirstName}}",
   "nom": "{{$randomLastName}}",
-  "email": "{{$randomEmail}}",
+  "email": "mettezvotreemail@gmail.com",
   "phoneNumber": "+221771234573",
-  "password": "Test@123456"
+  "pinCode": "1515"
 }
 
 Login : POST http://localhost:8080/api/users/login
 {
-  "username": "m2gl_onemoney",
-  "password": "Secure123!"
+  "phoneNumber": "+221771234573",
+  "pinCode": "Secure123!"
 }
+
+Profile : GET http://localhost:8080/api/users/profile
+//Pas de Body just le token du login en header
+
+Tester change pin et Reintialiser pin , End point dispo dans le contrat d'interface revisé
+
 
 Acces a eureka : localhost:8761
 Lancer en tant que admin cmd pour modifier le host
@@ -60,3 +68,7 @@ eureka:
     prefer-ip-address: false
     hostname: user-service ###(a ajuster selon le microservice (account-service, wallet-service, bill-service, recharge-service, transaction-service))
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+
+
+    docker-compose down -v pour supprimer les volumer et tout relancer proprement 
