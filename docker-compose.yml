@@ -134,6 +134,42 @@ services:
         condition: service_healthy
     restart: on-failure
 
+
+  transactionservice:
+    container_name: transactionservice-onemoney-prod
+    image: bassine20/onemoney:transaction-0.0.1
+    environment:
+      _JAVA_OPTIONS: -Xmx512m -Xms256m
+      SPRING_PROFILES_ACTIVE: prod
+
+      # Base de données
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/userservice?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+
+      # Eureka
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://admin:admin@jhipster-registry:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: false
+      EUREKA_INSTANCE_HOSTNAME: transactionservice
+
+      # Keycloak
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:9080/realms/jhipster
+
+    ports:
+      - "8082:8082"
+    networks:
+      - onemoney-network
+    depends_on:
+      mysql:
+        condition: service_started
+      jhipster-registry:
+        condition: service_started
+      keycloak:
+        condition: service_healthy
+    restart: always
+
+
+
 networks:
   onemoney-network:
     driver: bridge
