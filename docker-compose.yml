@@ -176,3 +176,38 @@ networks:
 volumes:
   mysql-prod-data:
   keycloak-prod-data:
+
+
+
+#Walette service  
+wallet-service:
+    container_name: walletservice-onemoney-prod
+    image: christoph241/wallet-service:1.0
+    environment:
+        _JAVA_OPTIONS=-Xmx512m -Xms256m
+        SPRING_PROFILES_ACTIVE=prod
+        SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/walletdb?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+        SPRING_DATASOURCE_USERNAME=root
+        SPRING_DATASOURCE_PASSWORD=rootpassword
+        SPRING_JPA_HIBERNATE_DDL_AUTO=update
+        EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:admin@jhipster-registry:8761/eureka/
+        EUREKA_INSTANCE_PREFER_IP_ADDRESS=false
+        EUREKA_INSTANCE_HOSTNAME=wallet-service
+        SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/realms/jhipster
+        SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:9080/realms/jhipster
+        SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=wallet-service
+        SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=TON_SECRET_KEYCLOAK
+        SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_SCOPE=openid,profile,email
+        SPRING_CLOUD_CONFIG_ENABLED=false
+    ports:
+      - "8083:8083"
+    networks:
+      - onemoney-network
+    depends_on:
+      mysql:
+        condition: service_started
+      jhipster-registry:
+        condition: service_started
+      keycloak:
+        condition: service_healthy
+    restart: on-failure
